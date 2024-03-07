@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Dodatkowe style dla estetyki */
+        .delete-btn, .edit-btn, .add-btn {
+            padding: 0.5rem 1rem; /* Zwiększenie rozmiaru przycisków */
+            font-size: 1rem; /* Zwiększenie rozmiaru czcionki przycisków */
+            line-height: 1.5rem;
+            border-radius: 0.375rem;
+        }
+        .delete-btn {
+            background-color: #EF4444; /* Czerwony kolor przycisku usuwania */
+            color: #FFF; /* Biały kolor tekstu na przycisku usuwania */
+        }
+        .edit-btn {
+            background-color: #3B82F6; /* Niebieski kolor przycisku edycji */
+            color: #FFF; /* Biały kolor tekstu na przycisku edycji */
+        }
+        .add-btn {
+            background-color: #10B981; /* Zielony kolor przycisku dodawania */
+            color: #FFF; /* Biały kolor tekstu na przycisku dodawania */
+        }
+    </style>
+</head>
+<body class="bg-gray-300">
+<div th:replace="~{components/nav :: nav}"></div>
+
+<!-- Content Section -->
+<div class="container mx-auto mt-8">
+    <!-- Add Book Button -->
+    <div class="mb-4">
+        <a href="/add-book" class="add-btn">Add Book</a>
+    </div>
+
+    <!-- List of Books -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-3xl font-bold mb-4">Your Library</h2>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full">
+                <thead>
+                <tr>
+                    <th class="px-4 py-2">Title</th>
+                    <th class="px-4 py-2">Author</th>
+                    <th class="px-4 py-2">ISBN</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iterate through all books -->
+                <th:block th:each="book : ${books}">
+                    <tr>
+                        <td class="border px-4 py-2" th:text="${book.title}"></td>
+                        <td class="border px-4 py-2" th:text="${book.author}"></td>
+                        <td class="border px-4 py-2" th:text="${book.isbn}"></td>
+                        <td class="border px-4 py-2">
+                            <a th:href="@{/delete-book(id=${book.id})}" class="delete-btn">Delete</a>
+                            <button class="edit-btn ml-2">Edit</button>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
